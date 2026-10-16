@@ -1,0 +1,29 @@
+# secrets — never commit
+.env
+*.env
+!.env.example
+
+# personal runtime data
+*.db
+*.db-shm
+*.db-wal
+*.db.bak
+*.bak
+*.old
+*~
+
+# dependencies
+node_modules/
+
+# install scratch
+_test/
+.tmp/
+tmp/
+
+# os noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# logs
+*.log

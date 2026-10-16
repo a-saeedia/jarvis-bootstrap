@@ -1,0 +1,568 @@
+// opencode.jsonc — rendered from a portable template by the installer.
+// Placeholders (`{{NODE}}`, `{{CONFIG}}`, `{{HOME}}`, `{{USERNAME}}`) are
+// resolved for your machine at install time. Secrets are NEVER stored here:
+// every credential is an {env:NAME} reference resolved from the environment.
+// generated in part by bource-mcp register â€” edit freely, re-run is idempotent
+{
+  "$schema": "https://opencode.ai/config.json",
+  "username": "{{USERNAME}}",
+  "default_agent": "build",
+  "model": "litellm/god-router",
+  "tools": {
+    "bource_get_index_overview": false,
+    "bource_get_market_watch": false,
+    "higgsfield_ai_image_editor_create_image": false,
+    "higgsfield_ai_image_generator_create_image": false,
+    "pollinations_generateImage": false,
+    "soul*": false
+  },
+  "agent": {
+    "power": {
+      "model": "google/gemini-3.5-flash-lite",
+      "tools": {
+        "bource_get_index_overview": false,
+        "bource_get_market_watch": false,
+        "higgsfield_ai_image_editor_create_image": false,
+        "higgsfield_ai_image_generator_create_image": false,
+        "pollinations_generateImage": false
+      },
+      "mode": "all",
+      "color": "warning",
+      "temperature": 0.2,
+      "steps": 8,
+      "description": "Escalation tier: Gemini 3.5 Flash-Lite via AI Studio API (FREE tier, rate-limited). Invoke ONLY when the free lane (litellm/god-router or free flash) is demonstrably insufficient, or when the user explicitly asks for /power. Never auto-escalate by default.",
+      "prompt": "You are the escalation tier, running on google/gemini-3.5-flash-lite via the AI Studio API (FREE tier, rate-limited, RPD-capped; NOT covered by the Google AI Pro subscription).\n\nOperating rules:\n1. The default lane is free/local models (litellm/god-router). You exist only for problems that lane cannot solve reliably: deep multi-step reasoning, long-context synthesis, hard debugging, or when the user explicitly invoked /power.\n2. This is a metered call. Work efficiently: no re-deriving context, no ceremony, no long preamble. Deliver the highest-value result in the fewest tokens.\n3. When you successfully resolve an escalated task, finish with a one-line usage log: `POWER|model|date|reason|outcome` so it can be recorded in the vault.\n4. If the task does NOT need escalation (trivial, or free lane handles it fine), say so plainly and stop rather than spending tokens.",
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "bash": {
+          "*": "allow"
+        },
+        "webfetch": "allow",
+        "websearch": "allow",
+        "task": "allow",
+        "todowrite": "allow",
+        "question": "allow"
+      }
+    },
+    "alchemist": {
+      "mode": "all",
+      "color": "primary",
+      "temperature": 0.6,
+      "description": "SymbolicOS / MagicOS lane - reverse-engineers magical systems (Enochian, Goetia, Hermetic Qabalah, Norse runes, Egyptian, Vedic/Tantric mantras, Chaos Magic) into one coherent symbolic OS. Use when he says magic, sigil, spell, Enochian, Goetia, Qabalah, rune, talisman, mantra, decoding, covenant, or wants the old work resumed.",
+      "prompt": "You are the SymbolicOS / MagicOS research lane.\\n\\nTHE THESIS (Arman's own words, chat 684e4b2b, 2026-08-04): magic is a scanner for doors. Sigils, codes, names, repetition and humming are barcodes - a fingerprint reader on a lock. Your job is to reverse-engineer that into a coherent symbolic operating system, not to explain it away.\\n\\nTHE MAPPING: symbols/names/tones = hashed IDs (access keys) | intent = auth token | ritual = ordered protocol = API call | timing/location/astrology = execution context | entities = functions called with parameters | magic words = function names | tools = external RAM/antenna.\\n\\nBUILD ORDER, never reorder: 1 reverse-engineer, 2 prototype the ritual-as-auth-protocol, 3 personal mapping, 4 build the custom OS.\\n\\nSOURCES in his priority order: Enochian (Dee/Kelley - first system of record, structured like a command-line OS), Goetia, Hermetic Qabalah, Norse runes, Egyptian name-invocation, Vedic/Tantric mantras, Chaos Magic. He decided to merge ALL of them into one shared OS rather than mine one tradition.\\n\\nSTANCES: this is a symbolic model, not a claim about mechanism. Use auth token as an organizing analogy, never as proven physics, and never dismiss it either. He is a practitioner, not a skeptic. Keep ritual work non-demonic.\\n\\nVOCABULARY GUARD: sigil is overloaded. In the vault and brand sense it means his logo artwork; in this lane it means a magical sigil. Always disambiguate. Prefer personal mark for the brand sense.\\n\\nSTATE: the project is STALLED, not complete. 684e4b2b died in chunk 19 on repeated image-generation failures. 6876d017 is the sequel, which he called the Covenant. 6912438d exists because he thought the first thread lost the thread. The Enochian reverse-engineering pass has no recorded completion. Never claim the work is finished, and never claim to remember it without re-reading the corpus.\\n\\nCORPUS: D:/projects/gpt output/_distill/chunks/0041-0059 (main), 0065-0074 (sequel), 0086 (rebuild); index at intent-index.md. Full state map: {{CONFIG}}/vault/projects/symbolicos-magic-os.md\\n\\nOUTPUT: answer his actual question, cite which chunk you drew from, and label what is theory versus verified. No preamble.",
+      "tools": {
+        "soul*": true
+      }
+    }
+  },
+  "command": {
+    "power": {
+      "description": "Escalate to the Gemini 2.5 Pro power tier (AI Studio API, metered). Use only when the free lane failed or the user explicitly wants pro-grade reasoning.",
+      "agent": "power",
+      "template": "{{input}}"
+    },
+    "magic": {
+      "description": "Open the SymbolicOS / MagicOS lane.",
+      "agent": "alchemist",
+      "template": "{{input}}"
+    }
+  },
+  "snapshot": true,
+  "share": "manual",
+  "autoupdate": "notify",
+  "instructions": [
+    "{{CONFIG}}/AGENTS.md"
+  ],
+  "server": {
+    "port": 4096,
+    "hostname": "127.0.0.1",
+    "mdns": false
+  },
+  "small_model": "litellm/god-router",
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "tail_turns": 12,
+    "preserve_recent_tokens": 24000,
+    "reserved": 20000
+  },
+  "tool_output": {
+    "max_lines": 400,
+    "max_bytes": 20000
+  },
+  "subagent_depth": 2,
+  "experimental": {
+    "mcp_timeout": 90000,
+    "primary_tools": []
+  },
+  "permission": {
+    "read": "allow",
+    "edit": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "task": "allow",
+    "todowrite": "allow",
+    "question": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "skill": "allow",
+    "lsp": "allow",
+    "external_directory": {
+      "*": "allow",
+      "C:/Windows/System32/**": "deny",
+      "C:/Windows/**": "deny",
+      "/System/**": "deny",
+      "/usr/**": "deny",
+      "/etc/**": "deny"
+    },
+    "bash": {
+      "*": "allow",
+      "rm -rf /": "deny",
+      "rm -rf C:\\*": "deny",
+      "rm -rf ~": "deny",
+      "rm -rf \/": "deny",
+      "sudo rm -rf *": "deny",
+      "rmdir /s C:\\*": "deny",
+      "format *": "deny",
+      "diskpart*": "deny",
+      "del /f /s /q C:\\*": "deny",
+      "shutdown /s*": "ask",
+      "shutdown /r*": "ask"
+    }
+  },
+  "skills": {
+    "paths": [
+      "{{CONFIG}}/skill"
+    ]
+  },
+  "references": {
+    "memory": {
+      "path": "{{CONFIG}}/vault",
+      "description": "Persistent memory vault (Obsidian-compatible). Store project learnings, user preferences, decisions, and reusable knowledge here."
+    }
+  },
+  "provider": {
+    "github": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "GitHub Models (free)",
+      "options": {
+        "baseURL": "https://models.inference.ai.azure.com",
+        "apiKey": "{env:GITHUB_MODELS_TOKEN}"
+      },
+      "models": {
+        "gpt-5": {
+          "name": "GPT-5 (free)"
+        },
+        "gpt-4.1": {
+          "name": "GPT-4.1 (free)"
+        },
+        "o4-mini": {
+          "name": "o4-mini (free)"
+        },
+        "meta-llama/llama-4-maverick": {
+          "name": "Llama 4 Maverick (free)"
+        },
+        "deepseek-ai/DeepSeek-R1": {
+          "name": "DeepSeek R1 (free)"
+        },
+        "mistralai/Mistral-Nemo": {
+          "name": "Mistral Nemo (free)"
+        },
+        "microsoft/Phi-4-multimodal": {
+          "name": "Phi-4 (free)"
+        }
+      }
+    },
+    "groq": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Groq (free tier)",
+      "options": {
+        "baseURL": "https://api.groq.com/openai/v1",
+        "apiKey": "{env:GROQ_API_KEY}"
+      },
+      "models": {
+        "llama-3.3-70b-versatile": {
+          "name": "Llama 3.3 70B"
+        },
+        "qwen-qwq-32b": {
+          "name": "QwQ 32B"
+        },
+        "deepseek-r1-distill-llama-70b": {
+          "name": "DeepSeek R1 70B"
+        },
+        "whisper-large-v3": {
+          "name": "Whisper V3 (STT)"
+        }
+      }
+    },
+    "openrouter": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "OpenRouter (free)",
+      "options": {
+        "baseURL": "https://openrouter.ai/api/v1",
+        "apiKey": "{env:OPENROUTER_API_KEY}"
+      },
+      "models": {
+        "openrouter/free": {
+          "name": "Free router (auto-pick)"
+        },
+        "meta-llama/llama-3.3-70b-instruct:free": {
+          "name": "Llama 3.3 70B (free)"
+        },
+        "google/gemini-2.5-flash:free": {
+          "name": "Gemini 2.5 Flash (free)"
+        },
+        "deepseek/deepseek-r1:free": {
+          "name": "DeepSeek R1 (free)"
+        },
+        "qwen/qwen3-32b:free": {
+          "name": "Qwen3 32B (free)"
+        }
+      }
+    },
+    "aistudio": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Google AI Studio (free)",
+      "options": {
+        "baseURL": "https://generativelanguage.googleapis.com/v1beta/openai/",
+        "apiKey": "{env:GEMINI_API_KEY}"
+      },
+      "models": {
+        "gemini-3.6-flash": {
+          "name": "Gemini 3.6 Flash (free)"
+        },
+        "gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash (free)"
+        },
+        "gemini-2.5-flash-lite": {
+          "name": "Gemini 2.5 Flash-Lite (free)"
+        }
+      }
+    },
+    "litellm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "LiteLLM router (all free)",
+      "options": {
+        "baseURL": "http://localhost:4000/v1",
+        "apiKey": "{env:LITELLM_MASTER_KEY}"
+      },
+      "models": {
+        "god-router": {
+          "name": "god-router (free aggregate: flash/coder/fast/local)"
+        },
+        "flash": {
+          "name": "flash (Gemini 3.6 + fallbacks)"
+        },
+        "coder": {
+          "name": "coder (GPT-5 + fallbacks)"
+        },
+        "fast": {
+          "name": "fast (Groq + fallbacks)"
+        },
+        "local": {
+          "name": "local (Ollama only)"
+        }
+      }
+    },
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen3:8b": {
+          "name": "Qwen3 8B (local Ã¢â‚¬â€ recommended)"
+        },
+        "qwen3:4b": {
+          "name": "Qwen3 4B (local Ã¢â‚¬â€ fast)"
+        },
+        "qwen2.5-coder:7b": {
+          "name": "Qwen 2.5 Coder 7B"
+        },
+        "llama3.1:8b": {
+          "name": "Llama 3.1 8B"
+        },
+        "deepseek-r1:7b": {
+          "name": "DeepSeek R1 7B"
+        }
+      }
+    },
+    "perplexity": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Perplexity (Sonar)",
+      "options": {
+        "baseURL": "https://api.perplexity.ai",
+        "apiKey": "{env:PERPLEXITY_API_KEY}"
+      },
+      "models": {
+        "sonar": {
+          "name": "Sonar (fast, grounded)"
+        },
+        "sonar-pro": {
+          "name": "Sonar Pro (deeper search)"
+        },
+        "sonar-reasoning": {
+          "name": "Sonar Reasoning (R1-style)"
+        }
+      }
+    },
+    "google": {
+      "name": "Google Gemini (API, metered above free tier)",
+      "options": {
+        "apiKey": "{env:GEMINI_API_KEY}"
+      },
+      "models": {
+        "gemini-3.5-flash-lite": {
+          "name": "Gemini 3.5 Flash-Lite (free tier)"
+        },
+        "gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash (fast)"
+        },
+        "gemini-2.5-flash-lite": {
+          "name": "Gemini 2.5 Flash-Lite"
+        }
+      }
+    },
+    "nvidia": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "NVIDIA NIM (free)",
+      "options": {
+        "baseURL": "https://integrate.api.nvidia.com/v1",
+        "apiKey": "{env:NVIDIA_API_KEY}"
+      },
+      "models": {
+        "deepseek-ai/DeepSeek-R1": {
+          "name": "DeepSeek R1 (free)"
+        },
+        "qwen/qwen2.5-72b-instruct": {
+          "name": "Qwen 2.5 72B (free)"
+        },
+        "meta/llama-3.3-70b-instruct": {
+          "name": "Llama 3.3 70B (free)"
+        },
+        "deepseek-ai/deepseek-v3": {
+          "name": "DeepSeek V3 (free)"
+        }
+      }
+    }
+  },
+  "mcp": {
+    "soul": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{CONFIG}}/soul/server.mjs"
+      ],
+      "enabled": true
+    },
+    "creative-lemon": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{HOME}}/Desktop/alechemist/creative-lemon/dist/index.js"
+      ],
+      "enabled": false
+    },
+    "bridge": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{HOME}}/Desktop/the merge/mcp/server/index.js"
+      ],
+      "enabled": false
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{CONFIG}}/node_modules/@upstash/context7-mcp/dist/index.js"
+      ],
+      "enabled": true
+    },
+    "sequential-thinking": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{CONFIG}}/node_modules/@modelcontextprotocol/server-sequential-thinking/dist/index.js"
+      ],
+      "enabled": true
+    },
+    "memory": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{CONFIG}}/node_modules/@modelcontextprotocol/server-memory/dist/index.js"
+      ],
+      "enabled": true
+    },
+    "filesystem": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{CONFIG}}/node_modules/@modelcontextprotocol/server-filesystem/dist/index.js",
+        "{{HOME}}/Desktop",
+        "{{HOME}}/Documents",
+        "{{CONFIG}}/vault"
+      ],
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{CONFIG}}/node_modules/@playwright/mcp/cli.js",
+        "--browser",
+        "chrome",
+        "--user-data-dir",
+        "{{HOME}}/Desktop/alechemist/.browser-profile",
+        "--timeout-navigation",
+        "90000",
+        "--timeout-action",
+        "20000"
+      ],
+      "enabled": false
+    },
+    "alchemist-bot": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{HOME}}/Desktop/social media/mcp/alchemist-bot/server.js"
+      ],
+      "enabled": false,
+      "environment": {}
+    },
+    "ig-research": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{HOME}}/Desktop/social media/mcp/ig-research/server.js"
+      ],
+      "enabled": false,
+      "environment": {}
+    },
+    "github": {
+      "type": "local",
+      "command": [
+        "{{CONFIG}}/tools/github/github-mcp-server",
+        "stdio"
+      ],
+      "environment": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_MODELS_TOKEN}"
+      },
+      "enabled": true
+    },
+    "sqlite": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{CONFIG}}/node_modules/mcp-server-sqlite-npx/dist/index.js",
+        "{{CONFIG}}/vault/agent-memory.db"
+      ],
+      "enabled": true
+    },
+    "pollinations": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{CONFIG}}/node_modules/@pollinations/mcp/pollinations-mcp.js"
+      ],
+      "environment": {
+        "POLLINATIONS_API_KEY": "{env:POLLINATIONS_API_KEY}"
+      },
+      "enabled": false
+    },
+    "svg-canvas": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{CONFIG}}/tools/svg-mcp.js"
+      ],
+      "enabled": false
+    },
+    "openshorts": {
+      "type": "remote",
+      "url": "https://mcp.openshorts.app/mcp",
+      "enabled": true,
+      "oauth": {}
+    },
+    "higgsfield": {
+      "type": "remote",
+      "url": "https://mcp.magichour.ai/",
+      "headers": {
+        "Authorization": "Bearer {env:MAGIC_HOUR_API_KEY}"
+      },
+      "enabled": true
+    },
+    "cloudflare": {
+      "type": "remote",
+      "url": "https://mcp.cloudflare.com/mcp",
+      "enabled": true,
+      "oauth": {}
+    },
+    "cloudflare-docs": {
+      "type": "remote",
+      "url": "https://docs.mcp.cloudflare.com/mcp",
+      "enabled": true
+    },
+    "cloudflare-bindings": {
+      "type": "remote",
+      "url": "https://bindings.mcp.cloudflare.com/mcp",
+      "enabled": true,
+      "oauth": {}
+    },
+    "cloudflare-builds": {
+      "type": "remote",
+      "url": "https://builds.mcp.cloudflare.com/mcp",
+      "enabled": true,
+      "oauth": {}
+    },
+    "cloudflare-observability": {
+      "type": "remote",
+      "url": "https://observability.mcp.cloudflare.com/mcp",
+      "enabled": true,
+      "oauth": {}
+    },
+    "soulforge": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{HOME}}/Desktop/creative/dist/index.js"
+      ],
+      "enabled": false
+    },
+    "bource": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{HOME}}/Desktop\\bource mcp\\server.js"
+      ],
+      "enabled": false,
+      "environment": {
+        "BOURCE_DATA_DIR": "{{HOME}}\\.bource-mcp",
+        "BOURCE_PORTAL_URL": "https://my.tsetmc.com"
+      }
+    },
+    "smart-pill": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{HOME}}/Desktop/system admin/smart-pill/dist/index.js"
+      ],
+      "enabled": true
+    },
+    "divar-mcp": {
+      "type": "local",
+      "command": [
+        "{{NODE}}",
+        "{{HOME}}/Desktop/divar mcp/mcp-server.mjs"
+      ],
+      "enabled": false
+    }
+  }
+}

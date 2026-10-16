@@ -1,0 +1,56 @@
+{
+  "name": "jarvis-bootstrap",
+  "version": "1.0.0",
+  "description": "One-command bootstrap for the full opencode stack (MCPs, agents, skills, plugins, memory vault) on a fresh machine.",
+  "configDir": "~/.config/opencode",
+  "requires": {
+    "node": ">=20",
+    "git": "*"
+  },
+  "mcp": {
+    "packages": {
+      "@upstash/context7-mcp": "latest",
+      "@modelcontextprotocol/server-sequential-thinking": "latest",
+      "@modelcontextprotocol/server-memory": "latest",
+      "@modelcontextprotocol/server-filesystem": "latest",
+      "@playwright/mcp": "latest",
+      "mcp-server-sqlite-npx": "latest",
+      "@pollinations/mcp": "latest"
+    },
+    "binaries": {
+      "github": {
+        "repo": "github/github-mcp-server",
+        "assetPatterns": {
+          "darwin-arm64": "Darwin_arm64",
+          "darwin-x64": "Darwin_x86_64",
+          "linux-x64": "Linux_x86_64",
+          "linux-arm64": "Linux_arm64",
+          "windows-x64": "Windows_x86_64"
+        },
+        "binName": "github-mcp-server",
+        "dest": "tools/github/github-mcp-server"
+      }
+    }
+  },
+  "env": {
+    "required": [],
+    "optional": [
+      "OPENROUTER_API_KEY",
+      "GEMINI_API_KEY",
+      "GROQ_API_KEY",
+      "NVIDIA_API_KEY",
+      "PERPLEXITY_API_KEY",
+      "MAGIC_HOUR_API_KEY",
+      "POLLINATIONS_API_KEY",
+      "LITELLM_MASTER_KEY",
+      "GITHUB_MODELS_TOKEN"
+    ]
+  },
+  "skills": {
+    "installTo": ["~/.config/opencode/skill", "~/.agents/skills"]
+  },
+  "vault": {
+    "path": "~/.config/opencode/vault",
+    "subdirs": ["notes", "projects", "inbox"]
+  }
+}
